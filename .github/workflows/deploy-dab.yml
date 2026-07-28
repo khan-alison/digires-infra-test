@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install Databricks CLI
-        run: pip install databricks-cli
+        run: pip install databricks-cli --upgrade
       - name: Validate DAB
         run: databricks bundle validate --target dev
         env:
@@ -37,6 +37,9 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install Databricks CLI
-        run: pip install databricks-cli
+        run: pip install databricks-cli --upgrade
       - name: Deploy to dev
         run: databricks bundle deploy --target dev
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
