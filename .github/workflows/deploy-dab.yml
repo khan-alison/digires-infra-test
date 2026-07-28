@@ -1,23 +1,39 @@
-cd /Users/khanhnn/Developer/DE/digires-infra-test
+name: Deploy DAB
 
-# Tạo structure
-mkdir -p resources/workflows resources/tables resources/volumes .github/workflows
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
-# Tạo databricks.yml
-cat > databricks.yml << 'EOF'
-bundle:
-  name: digires
-  version: 0.0.1
+env:
+  DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+  DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
-targets:
-  dev:
-    workspace:
-      root_path: /Repos/dev/digires
-  prod:
-    workspace:
-      root_path: /Repos/prod/digires
-EOF
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install Databricks CLI
+        run: pip install databricks-cli
+      - name: Validate DAB
+        run: databricks bundle validate --target dev
 
-git add databricks.yml
-git commit -m "Init DAB structure"
-git push
+  deploy:
+    needs: validate
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install Databricks CLI
+        run: pip install databricks-cli
+      - name: Deploy to dev
+        run: databricks bundle deploy --target dev
