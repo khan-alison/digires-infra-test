@@ -16,11 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
       - name: Install Databricks CLI
-        run: pip install databricks-cli --upgrade
+        uses: databricks/setup-cli@main
       - name: Validate DAB
         run: databricks bundle validate --target dev
         env:
@@ -33,11 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
       - name: Install Databricks CLI
-        run: pip install databricks-cli --upgrade
+        uses: databricks/setup-cli@main
       - name: Deploy to dev
         run: databricks bundle deploy --target dev
         env:
