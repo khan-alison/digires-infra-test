@@ -1,0 +1,21 @@
+resources:
+  schemas:
+    digires_test_schema:
+      name: digires_test
+      catalog_name: workspace
+      comment: "Schema test cho DigiRES DE"
+      grants:
+        - principal: "5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b"
+          privileges:
+            - MANAGE
+            - USE_SCHEMA
+        - principal: "khanh28112001@gmail.com"
+          privileges:
+            - USE_SCHEMA
+            - SELECT
+        - principal: "8a407ff4-185a-4340-8ca8-e21718b297cb" # sp-digires-runtime
+          privileges:
+            - USE_SCHEMA
+            - SELECT
+            - MODIFY
+            - CREATE_TABLE

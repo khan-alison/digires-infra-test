@@ -1,0 +1,6 @@
+resources:
+  postgres_projects:
+    digires_lakebase_test:
+      project_id: "digires-lakebase-test"
+      display_name: "DigiRES Lakebase Test"
+      pg_version: 17

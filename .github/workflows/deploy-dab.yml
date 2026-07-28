@@ -1,0 +1,23 @@
+cd /Users/khanhnn/Developer/DE/digires-infra-test
+
+# Tạo structure
+mkdir -p resources/workflows resources/tables resources/volumes .github/workflows
+
+# Tạo databricks.yml
+cat > databricks.yml << 'EOF'
+bundle:
+  name: digires
+  version: 0.0.1
+
+targets:
+  dev:
+    workspace:
+      root_path: /Repos/dev/digires
+  prod:
+    workspace:
+      root_path: /Repos/prod/digires
+EOF
+
+git add databricks.yml
+git commit -m "Init DAB structure"
+git push

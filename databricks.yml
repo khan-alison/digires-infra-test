@@ -1,0 +1,30 @@
+bundle:
+  name: digires-infra-test
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    workspace:
+      host: https://dbc-58f057ff-559c.cloud.databricks.com
+      root_path: /Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      service_principal_name: "8a407ff4-185a-4340-8ca8-e21718b297cb"
+
+  test:
+    mode: production
+    workspace:
+      host: https://dbc-58f057ff-559c.cloud.databricks.com
+      root_path: /Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      service_principal_name: "8a407ff4-185a-4340-8ca8-e21718b297cb"
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-58f057ff-559c.cloud.databricks.com
+      root_path: /Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      service_principal_name: "8a407ff4-185a-4340-8ca8-e21718b297cb"

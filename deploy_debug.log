@@ -1,0 +1,555 @@
+16:10:17 Info: start pid=97707 version=0.299.0 args="databricks, bundle, deploy, -t, test, --profile, sp-deploy, --debug"
+16:10:17 Debug: Found bundle root at /Users/khanhnn/Developer/DE/digires-infra-test (file /Users/khanhnn/Developer/DE/digires-infra-test/databricks.yml) pid=97707
+16:10:17 Info: Phase: load pid=97707
+16:10:17 Debug: Apply pid=97707 mutator=EntryPoint
+16:10:17 Debug: Apply pid=97707 mutator=scripts.preinit
+16:10:17 Debug: No script defined for preinit, skipping pid=97707 mutator=scripts.preinit
+16:10:17 Debug: Apply pid=97707 mutator=ProcessRootIncludes
+16:10:17 Debug: Apply pid=97707 mutator=ProcessRootIncludes mutator=ProcessInclude(resources/jobs.yml)
+16:10:17 Debug: Apply pid=97707 mutator=VerifyCliVersion
+16:10:17 Debug: Apply pid=97707 mutator=EnvironmentsToTargets
+16:10:17 Debug: Apply pid=97707 mutator=ComputeIdToClusterId
+16:10:17 Debug: Apply pid=97707 mutator=InitializeVariables
+16:10:17 Debug: Apply pid=97707 mutator=DefineDefaultTarget(default)
+16:10:17 Debug: Apply pid=97707 mutator=validate:unique_resource_keys
+16:10:17 Debug: Apply pid=97707 mutator=SelectTarget(test)
+16:10:17 Debug: Apply pid=97707 mutator=<func>
+16:10:17 Debug: Loading sp-deploy profile from /Users/khanhnn/.databrickscfg pid=97707 sdk=true
+16:10:17 Debug: [Local Cache] using cache key: 97812565835e25406c062b67e25eb1b1862e6c751337eba187839f1d218426f5 pid=97707
+16:10:17 Debug: [Local Cache] cache hit pid=97707
+16:10:17 Debug: Resolved account_id from host metadata: "a49d64f2-dd8c-46b0-ae53-da73a62c2e4a" pid=97707 sdk=true
+16:10:17 Debug: Resolved workspace_id from host metadata: "7474648267999894" pid=97707 sdk=true
+16:10:17 Debug: Resolved cloud from hostname: "AWS" pid=97707 sdk=true
+16:10:17 Debug: Resolved token_audience from host metadata token_federation_default_oidc_audiences: "https://dbc-58f057ff-559c.cloud.databricks.com/oidc/v1/token" pid=97707 sdk=true
+16:10:17 Debug: Resolved discovery_url from host metadata: "https://dbc-58f057ff-559c.cloud.databricks.com/oidc/.well-known/oauth-authorization-server" pid=97707 sdk=true
+16:10:17 Debug: Failed to configure auth "pat": token is required pid=97707 sdk=true
+16:10:17 Debug: Failed to configure auth "basic": <nil> pid=97707 sdk=true
+16:10:18 Debug: GET /oidc/.well-known/oauth-authorization-server
+< HTTP/2.0 200 OK
+< {
+<   "authorization_endpoint": "https://dbc-58f057ff-559c.cloud.databricks.com/oidc/v1/authorize",
+<   "claims_supported": [
+<     "iss",
+<     "sub",
+<     "aud",
+<     "iat",
+<     "exp",
+<     "jti",
+<     "name",
+<     "family_name",
+<     "given_name",
+<     "preferred_username"
+<   ],
+<   "code_challenge_methods_supported": [
+<     "S256"
+<   ],
+<   "grant_types_supported": [
+<     "client_credentials",
+<     "authorization_code",
+<     "refresh_token"
+<   ],
+<   "id_token_signing_alg_values_supported": [
+<     "RS256"
+<   ],
+<   "issuer": "https://dbc-58f057ff-559c.cloud.databricks.com/oidc",
+<   "jwks_uri": "https://ohio.cloud.databricks.com/oidc/jwks.json",
+<   "request_uri_parameter_supported": false,
+<   "response_modes_supported": [
+<     "query",
+<     "fragment",
+<     "form_post"
+<   ],
+<   "response_types_supported": [
+<     "code",
+<     "id_token"
+<   ],
+<   "scopes_supported": [
+<     "access-management",
+<     "ai-gateway",
+<     "ai-search",
+<     "alerts",
+<     "all-apis",
+<     "apps",
+<     "authentication",
+<     "billing",
+<     "bundle",
+<     "bundle-deployments",
+<     "cleanrooms",
+<     "clusters",
+<     "command-execution",
+<     "custom-llms",
+<     "dashboards",
+<     "databricks-connect",
+<     "dataclassification",
+<     "dataquality",
+<     "disaster-recovery",
+<     "email",
+<     "environments",
+<     "files",
+<     "forecasting",
+<     "genie",
+<     "global-init-scripts",
+<     "identity",
+<     "instance-pools",
+<     "instance-profiles",
+<     "jobs",
+<     "knowledge-assistants",
+<     "libraries",
+<     "marketplace",
+<     "mlflow",
+<     "model-serving",
+<     "networking",
+<     "notifications",
+<     "offline_access",
+<     "openid",
+<     "pipelines",
+<     "postgres",
+<     "profile",
+<     "provisioning",
+<     "qualitymonitor",
+<     "query-history",
+<     "scim",
+<     "search",
+<     "secrets",
+<     "settings",
+<     "sharing",
+<     "sql",
+<     "supervisor-agents",
+<     "... (4 additional elements)"
+<   ],
+<   "subject_types_supported": [
+<     "public"
+<   ],
+<   "token_endpoint": "https://dbc-58f057ff-559c.cloud.databricks.com/oidc/v1/token",
+<   "token_endpoint_auth_methods_supported": [
+<     "client_secret_basic",
+<     "... (2 additional elements)"
+<   ]
+< } pid=97707 sdk=true
+16:10:18 Debug: Generating Databricks OAuth token for Service Principal (5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b) pid=97707 sdk=true
+16:10:18 Debug: POST /oidc/v1/token
+> <http.RoundTripper>
+< HTTP/2.0 200 OK
+< {
+<   "access_token": "**REDACTED**",
+<   "expires_in": 3600,
+<   "scope": "all-apis",
+<   "token_type": "Bearer"
+< } pid=97707 sdk=true
+16:10:18 Debug: Apply pid=97707 mutator=<func>
+16:10:18 Debug: Apply pid=97707 mutator=<func>
+16:10:18 Info: Phase: initialize pid=97707
+16:10:18 Debug: Apply pid=97707 mutator=validate:AllResourcesHaveValues
+16:10:18 Debug: Apply pid=97707 mutator=validate:interpolation_in_auth_config
+16:10:18 Debug: Apply pid=97707 mutator=validate:no_interpolation_in_bundle_name
+16:10:18 Debug: Apply pid=97707 mutator=validate:engine
+16:10:18 Debug: Apply pid=97707 mutator=validate:scripts
+16:10:18 Debug: Apply pid=97707 mutator=RewriteSyncPaths
+16:10:18 Debug: Apply pid=97707 mutator=SyncDefaultPath
+16:10:18 Debug: Apply pid=97707 mutator=SyncInferRoot
+16:10:18 Debug: Apply pid=97707 mutator=InitializeCache
+16:10:18 Debug: Apply pid=97707 mutator=PopulateCurrentUser
+16:10:18 Debug: [Local Cache] using cache key: e290643e9e6d41a0841463c5457275bbb6362d4ed4ee57bcaac7b6c8b720b95a pid=97707 mutator=PopulateCurrentUser
+16:10:18 Debug: [Local Cache] cache miss, computing pid=97707 mutator=PopulateCurrentUser
+16:10:18 Debug: GET /api/2.0/preview/scim/v2/Me
+< HTTP/2.0 200 OK
+< {
+<   "active": true,
+<   "displayName": "sp-digires-deploy",
+<   "emails": [
+<     {
+<       "primary": true,
+<       "type": "work",
+<       "value": "5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b"
+<     }
+<   ],
+<   "entitlements": [
+<     {
+<       "value": "workspace-access"
+<     },
+<     {
+<       "value": "databricks-sql-access"
+<     },
+<     {
+<       "value": "workspace-consume"
+<     }
+<   ],
+<   "groups": [
+<     {
+<       "$ref": "Groups/86799786803438",
+<       "display": "account users",
+<       "type": "direct",
+<       "value": "86799786803438"
+<     },
+<     {
+<       "$ref": "Groups/80822801748053",
+<       "display": "users",
+<       "type": "direct",
+<       "value": "80822801748053"
+<     }
+<   ],
+<   "id": "74462422888188",
+<   "name": {
+<     "givenName": "sp-digires-deploy"
+<   },
+<   "schemas": [
+<     "urn:ietf:params:scim:schemas:core:2.0:User",
+<     "urn:ietf:params:scim:schemas:extension:workspace:2.0:User"
+<   ],
+<   "userName": "5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b"
+< } pid=97707 mutator=PopulateCurrentUser sdk=true
+16:10:18 Debug: [Local Cache] computed and stored result pid=97707 mutator=PopulateCurrentUser
+16:10:18 Debug: Apply pid=97707 mutator=LoadGitDetails
+16:10:18 Debug: Apply pid=97707 mutator=ApplySourceLinkedDeploymentPreset
+16:10:18 Debug: Apply pid=97707 mutator=DefineDefaultWorkspaceRoot
+16:10:18 Debug: Apply pid=97707 mutator=ExpandWorkspaceRoot
+16:10:18 Debug: Apply pid=97707 mutator=DefaultWorkspacePaths
+16:10:18 Debug: Apply pid=97707 mutator=PrependWorkspacePrefix
+16:10:18 Debug: Apply pid=97707 mutator=RewriteWorkspacePrefix
+16:10:18 Debug: Apply pid=97707 mutator=CollectEscapeTelemetry
+16:10:18 Debug: Apply pid=97707 mutator=SetVariables
+16:10:18 Debug: Apply pid=97707 mutator=ResolveVariableReferences
+16:10:18 Debug: Apply pid=97707 mutator=ResolveLookupVariables
+16:10:18 Debug: Apply pid=97707 mutator=ResolveVariableReferences
+16:10:18 Debug: Apply pid=97707 mutator=validate:volume-path
+16:10:18 Debug: Apply pid=97707 mutator=ApplyTargetMode
+16:10:18 Debug: Apply pid=97707 mutator=ConfigureWSFS
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=ResolveVariableReferences(resources)
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=LogResourceReferences
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=NormalizePaths
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=TranslatePathsDashboards
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=validate:SingleNodeCluster
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=ResolveVariableReferences(resources)
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=ExpandPipelineGlobPaths
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=MergeJobClusters
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=MergeJobParameters
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=MergeJobTasks
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=MergePipelineClusters
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=MergeApps
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=MergeGrants
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=CaptureUCDependencies
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=ConfigureDashboardSerializedDashboard
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=LoadDBAlertFiles
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=JobClustersFixups
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=ClusterFixups
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=ModelServingEndpointFixups
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=SetRunAs
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=OverrideCompute
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=ApplyPresets
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.dashboards.*, parent_path, /Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/resources)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.dashboards.*, embed_credentials, false)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.volumes.*, volume_type, MANAGED)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.alerts.*, parent_path, /Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/resources)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*, name, Untitled)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*, max_concurrent_runs, 1)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.schedule, pause_status, UNPAUSED)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.trigger, pause_status, UNPAUSED)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.continuous, pause_status, UNPAUSED)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*, queue, map[enabled:{true 4 [] false}])"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.task[*].dbt_task, schema, default)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.task[*].for_each_task.task.dbt_task, schema, default)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.job_clusters[*].new_cluster.workload_type.clients, notebooks, true)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.job_clusters[*].new_cluster.workload_type.clients, jobs, true)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.pipelines.*, edition, ADVANCED)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.pipelines.*, channel, CURRENT)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.sql_warehouses.*, auto_stop_mins, 120)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.sql_warehouses.*, enable_photon, true)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.sql_warehouses.*, max_num_clusters, 1)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.sql_warehouses.*, spot_instance_policy, COST_OPTIMIZED)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.apps.*, description, )"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.clusters.*, autotermination_minutes, 60)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.clusters.*.workload_type.clients, notebooks, true)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.clusters.*.workload_type.clients, jobs, true)"
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=DashboardFixups
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=ApplyBundlePermissions
+16:10:18 Debug: Apply pid=97707 mutator=ProcessStaticResources mutator=FixPermissions
+16:10:18 Debug: Apply pid=97707 mutator=PythonMutator(load_resources)
+16:10:18 Debug: Apply pid=97707 mutator=PythonMutator(apply_mutators)
+16:10:18 Debug: Apply pid=97707 mutator=validate:required
+16:10:18 Debug: Apply pid=97707 mutator=validate:enum
+16:10:18 Debug: Apply pid=97707 mutator=validate:validate_dashboard_etags
+16:10:18 Debug: Apply pid=97707 mutator=CheckPermissions
+16:10:18 Debug: Apply pid=97707 mutator=TranslatePaths
+16:10:18 Debug: Apply pid=97707 mutator=PythonWrapperWarning
+16:10:18 Debug: Apply pid=97707 mutator=ApplyArtifactsDynamicVersion
+16:10:18 Debug: Apply pid=97707 mutator=artifacts.Prepare
+16:10:18 Info: No local tasks in databricks.yml config, skipping auto detect pid=97707 mutator=artifacts.Prepare
+16:10:18 Debug: Apply pid=97707 mutator=apps.Validate
+16:10:18 Debug: Apply pid=97707 mutator=ValidateTargetMode
+16:10:18 Debug: Apply pid=97707 mutator=ValidateSharedRootPermissions
+16:10:18 Debug: Apply pid=97707 mutator=metadata.AnnotateJobs
+16:10:18 Debug: Apply pid=97707 mutator=metadata.AnnotatePipelines
+16:10:18 Debug: Apply pid=97707 mutator=scripts.postinit
+16:10:18 Debug: No script defined for postinit, skipping pid=97707 mutator=scripts.postinit
+16:10:19 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/resources.json&return_export_info=true
+< HTTP/2.0 404 Not Found
+< {
+<   "details": [
+<     {
+<       "@type": "type.googleapis.com/google.rpc.RequestInfo",
+<       "request_id": "86b882e5-9d44-4c24-a491-57b2495a6ebb",
+<       "serving_data": ""
+<     }
+<   ],
+<   "error_code": "RESOURCE_DOES_NOT_EXIST",
+<   "message": "Path (/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/stat... (32 more bytes)"
+< } pid=97707 sdk=true
+16:10:19 Debug: non-retriable error: Path (/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/resources.json) doesn't exist. pid=97707 sdk=true
+16:10:19 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/terraform.tfstate&return_export_info=true
+< HTTP/2.0 200 OK
+< {
+<   "created_at": 1784450222659,
+<   "modified_at": 1784452208681,
+<   "object_id": 1506289651068030,
+<   "object_type": "FILE",
+<   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/terr... (13 more bytes)",
+<   "resource_id": "1506289651068030",
+<   "size": 1119
+< } pid=97707 sdk=true
+16:10:19 Debug: GET /api/2.0/workspace-files/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/terraform.tfstate
+< HTTP/2.0 200 OK
+< <Streaming response> pid=97707 sdk=true
+16:10:19 Debug: read terraform.tfstate: terraform.tfstate: remote  state serial=13 lineage="076a143e-f49a-647f-166d-ac9125dccfdf" pid=97707
+16:10:19 Info: Available resource state files (from least to most preferred): [terraform.tfstate: remote terraform state serial=13 lineage="076a143e-f49a-647f-166d-ac9125dccfdf" /Users/khanhnn/Developer/DE/digires-infra-test/.databricks/bundle/test/terraform/terraform.tfstate: local terraform state serial=13 lineage="076a143e-f49a-647f-166d-ac9125dccfdf"] pid=97707
+16:10:19 Debug: Apply pid=97707 mutator=fast_validate(readonly)
+16:10:19 Debug: ApplyParallel pid=97707 mutator=fast_validate(readonly) mutator=validate:job_cluster_key_defined
+16:10:19 Debug: ApplyParallel pid=97707 mutator=fast_validate(readonly) mutator=validate:job_task_cluster_spec
+16:10:19 Debug: ApplyParallel pid=97707 mutator=fast_validate(readonly) mutator=validate:artifact_paths
+16:10:19 Info: Phase: build pid=97707
+16:10:19 Debug: Apply pid=97707 mutator=scripts.prebuild
+16:10:19 Debug: No script defined for prebuild, skipping pid=97707 mutator=scripts.prebuild
+16:10:19 Debug: Apply pid=97707 mutator=artifacts.Build
+16:10:19 Debug: Apply pid=97707 mutator=scripts.postbuild
+16:10:19 Debug: No script defined for postbuild, skipping pid=97707 mutator=scripts.postbuild
+16:10:19 Debug: Apply pid=97707 mutator=ResolveVariableReferences
+16:10:19 Debug: Apply pid=97707 mutator=ResolveVariableReferences(resources)
+16:10:19 Debug: Apply pid=97707 mutator=libraries.ExpandGlobReferences
+16:10:19 Debug: Apply pid=97707 mutator=CheckForSameNameLibraries
+16:10:19 Debug: Apply pid=97707 mutator=SwitchToPatchedWheels
+16:10:19 Debug: Apply pid=97707 mutator=TransformWheelTask
+16:10:19 Debug: Apply pid=97707 mutator=CheckDashboardsModifiedRemotely
+16:10:19 Debug: Apply pid=97707 mutator=SecretScopeFixups
+16:10:19 Debug: Apply pid=97707 mutator=deploy:state-pull
+16:10:19 Info: Opening remote deployment state file pid=97707 mutator=deploy:state-pull
+16:10:19 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deployment.json&return_export_info=true
+< HTTP/2.0 200 OK
+< {
+<   "created_at": 1784450196289,
+<   "modified_at": 1784452202061,
+<   "object_id": 1506289651068029,
+<   "object_type": "FILE",
+<   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/depl... (11 more bytes)",
+<   "resource_id": "1506289651068029",
+<   "size": 304
+< } pid=97707 mutator=deploy:state-pull sdk=true
+16:10:19 Debug: GET /api/2.0/workspace-files/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deployment.json
+< HTTP/2.0 200 OK
+< <Streaming response> pid=97707 mutator=deploy:state-pull sdk=true
+16:10:19 Info: Local deployment state is the same or newer, ignoring remote state pid=97707 mutator=deploy:state-pull
+16:10:19 Debug: Apply pid=97707 mutator=ValidateGitDetails
+16:10:19 Debug: Apply pid=97707 mutator=ValidateDirectOnlyResources
+16:10:19 Debug: Apply pid=97707 mutator=ValidateLifecycleStarted
+16:10:19 Debug: Apply pid=97707 mutator=check-running-resources
+16:10:19 Info: Phase: deploy pid=97707
+16:10:19 Debug: Apply pid=97707 mutator=scripts.predeploy
+16:10:19 Debug: No script defined for predeploy, skipping pid=97707 mutator=scripts.predeploy
+16:10:19 Debug: Apply pid=97707 mutator=lock:acquire
+16:10:19 Info: Acquiring deployment lock (force: false) pid=97707 mutator=lock:acquire
+16:10:20 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deploy.lock?overwrite=false
+> {
+>   "AcquisitionTime": "2026-07-19T16:10:19.991992+07:00",
+>   "ID": "da66d226-c991-4a7f-9a4e-2794d2f9de9c",
+>   "IsForced": false,
+>   "User": "5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b"
+> }
+< HTTP/2.0 200 OK pid=97707 mutator=lock:acquire sdk=true
+16:10:20 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deploy.lock&return_export_info=true
+< HTTP/2.0 200 OK
+< {
+<   "created_at": 1784452220403,
+<   "modified_at": 1784452220403,
+<   "object_id": 1506289651068060,
+<   "object_type": "FILE",
+<   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/depl... (7 more bytes)",
+<   "resource_id": "1506289651068060",
+<   "size": 161
+< } pid=97707 mutator=lock:acquire sdk=true
+16:10:20 Debug: GET /api/2.0/workspace/export?direct_download=true&path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deploy.lock
+< HTTP/2.0 200 OK
+< <Streaming response> pid=97707 mutator=lock:acquire sdk=true
+16:10:20 Debug: Apply pid=97707 mutator=artifacts.CleanUp
+16:10:21 Debug: POST /api/2.0/workspace/delete
+> {
+>   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/artifacts/... (9 more bytes)",
+>   "recursive": true
+> }
+< HTTP/2.0 200 OK
+< {} pid=97707 mutator=artifacts.CleanUp sdk=true
+16:10:21 Debug: POST /api/2.0/workspace/mkdirs
+> {
+>   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/artifacts/... (9 more bytes)"
+> }
+< HTTP/2.0 200 OK
+< {} pid=97707 mutator=artifacts.CleanUp sdk=true
+16:10:21 Debug: Apply pid=97707 mutator=libraries.Upload
+16:10:21 Debug: Apply pid=97707 mutator=files.Upload
+Uploading bundle files to /Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/files...
+16:10:21 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/files
+< HTTP/2.0 200 OK
+< {
+<   "object_id": 1506289651068020,
+<   "object_type": "DIRECTORY",
+<   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/files",
+<   "resource_id": "1506289651068020"
+< } pid=97707 mutator=files.Upload sdk=true
+16:10:21 Debug: Path /Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/files has type directory (ID: 1506289651068020) pid=97707 mutator=files.Upload
+16:10:22 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/files/deploy_debug.log?overwrite=true
+> 16:10:17 Info: start pid=97707 version=0.299.0 args="databricks, bundle, deploy, -t, test, --pro... (22874 more bytes)
+< HTTP/2.0 200 OK pid=97707 mutator=files.Upload sdk=true
+16:10:22 Info: Uploaded bundle files pid=97707 mutator=files.Upload
+16:10:22 Debug: Apply pid=97707 mutator=deploy:state-update
+16:10:22 Info: Loading deployment state from /Users/khanhnn/Developer/DE/digires-infra-test/.databricks/bundle/test/deployment.json pid=97707 mutator=deploy:state-update
+16:10:22 Debug: Apply pid=97707 mutator=deploy:state-push
+16:10:22 Info: Writing local deployment state file to remote state directory pid=97707 mutator=deploy:state-push
+16:10:22 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deployment.json?overwrite=true
+> {
+>   "cli_version": "0.299.0",
+>   "files": [
+>     {
+>       "is_notebook": false,
+>       "local_path": "databricks.yml"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "deploy_debug.log"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "resources/jobs.yml"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "src/copy_table.py"
+>     }
+>   ],
+>   "id": "bf6ed3f8-901c-499d-b9f3-2ea83a0c4a99",
+>   "seq": 13,
+>   "timestamp": "2026-07-19T09:10:22.373077Z",
+>   "version": 1
+> }
+< HTTP/2.0 200 OK pid=97707 mutator=deploy:state-push sdk=true
+16:10:22 Debug: Apply pid=97707 mutator=ApplyWorkspaceRootPermissions
+16:10:22 Debug: Apply pid=97707 mutator=trackUsedCompute
+16:10:22 Debug: Apply pid=97707 mutator=deploy:resource_path_mkdir
+16:10:22 Debug: Apply pid=97707 mutator=terraform.Interpolate
+16:10:22 Debug: Apply pid=97707 mutator=terraform.Write
+16:10:22 Debug: schema normalization diagnostic: unknown field: grants pid=97707 mutator=terraform.Write
+16:10:22 Debug: Apply pid=97707 mutator=terraform.Plan
+16:10:22 Debug: Using Terraform at /Users/khanhnn/Developer/DE/digires-infra-test/.databricks/bundle/test/bin/terraform pid=97707 mutator=terraform.Plan
+16:10:22 Debug: DATABRICKS_TF_CLI_CONFIG_FILE is not defined pid=97707 mutator=terraform.Plan
+16:10:22 Debug: Environment variables for Terraform: PATH, DATABRICKS_USER_AGENT_EXTRA, DATABRICKS_WORKSPACE_ID, DATABRICKS_CONFIG_PROFILE, DATABRICKS_CLIENT_SECRET, DATABRICKS_CLOUD, DATABRICKS_TOKEN_AUDIENCE, DATABRICKS_DISCOVERY_URL, TMPDIR, DATABRICKS_HOST, DATABRICKS_ACCOUNT_ID, DATABRICKS_CLIENT_ID, DATABRICKS_AUTH_TYPE, HOME pid=97707 mutator=terraform.Plan
+16:10:25 Debug: Planning complete and persisted at /Users/khanhnn/Developer/DE/digires-infra-test/.databricks/bundle/test/terraform/plan
+ pid=97707 mutator=terraform.Plan
+Deploying resources...
+16:10:25 Debug: Apply pid=97707 mutator=terraform.Apply
+Error: terraform apply: exit status 1
+
+Error: cannot create grants: User does not have USE SCHEMA on Schema 'workspace.digires_test'.
+
+  with databricks_grants.schema_digires_test_schema,
+  on bundle.tf.json line 41, in resource.databricks_grants.schema_digires_test_schema:
+  41:       }
+
+
+
+Updating deployment state...
+16:10:29 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/terraform.tfstate?overwrite=true
+> {
+>   "check_results": null,
+>   "lineage": "076a143e-f49a-647f-166d-ac9125dccfdf",
+>   "outputs": {},
+>   "resources": [
+>     {
+>       "instances": [
+>         {
+>           "attributes": {
+>             "catalog_name": "workspace",
+>             "comment": "Schema test cho DigiRES DE",
+>             "enable_predictive_optimization": "INHERIT",
+>             "force_destroy": true,
+>             "id": "workspace.digires_test",
+>             "metastore_id": "032af18c-229b-43b9-a9f3-413502478bc0",
+>             "name": "digires_test",
+>             "owner": "8a407ff4-185a-4340-8ca8-e21718b297cb",
+>             "properties": {},
+>             "provider_config": null,
+>             "schema_id": "2fb72a1e-cbb6-4869-8c1b-c4ead829438d",
+>             "storage_root": null
+>           },
+>           "private": "bnVsbA==",
+>           "schema_version": 0,
+>           "sensitive_attributes": null
+>         }
+>       ],
+>       "mode": "managed",
+>       "name": "digires_test_schema",
+>       "provider": "provider[\"registry.terraform.io/databricks/databricks\"]",
+>       "type": "databricks_schema"
+>     }
+>   ],
+>   "serial": 13,
+>   "terraform_version": "1.5.5",
+>   "version": 4
+> }
+< HTTP/2.0 200 OK pid=97707 sdk=true
+16:10:29 Debug: Apply pid=97707 mutator=lock:release
+16:10:29 Info: Releasing deployment lock pid=97707 mutator=lock:release
+16:10:29 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deploy.lock&return_export_info=true
+< HTTP/2.0 200 OK
+< {
+<   "created_at": 1784452220403,
+<   "modified_at": 1784452220403,
+<   "object_id": 1506289651068060,
+<   "object_type": "FILE",
+<   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/depl... (7 more bytes)",
+<   "resource_id": "1506289651068060",
+<   "size": 161
+< } pid=97707 mutator=lock:release sdk=true
+16:10:29 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deploy.lock&return_export_info=true
+< HTTP/2.0 200 OK
+< {
+<   "created_at": 1784452220403,
+<   "modified_at": 1784452220403,
+<   "object_id": 1506289651068060,
+<   "object_type": "FILE",
+<   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/depl... (7 more bytes)",
+<   "resource_id": "1506289651068060",
+<   "size": 161
+< } pid=97707 mutator=lock:release sdk=true
+16:10:30 Debug: GET /api/2.0/workspace/export?direct_download=true&path=/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/deploy.lock
+< HTTP/2.0 200 OK
+< <Streaming response> pid=97707 mutator=lock:release sdk=true
+16:10:30 Debug: POST /api/2.0/workspace/delete
+> {
+>   "path": "/Workspace/Users/5ff0e4f9-2913-4c9a-a0c9-21f02e90cd5b/.bundle/digires-infra-test/test/state/depl... (7 more bytes)"
+> }
+< HTTP/2.0 200 OK
+< {} pid=97707 mutator=lock:release sdk=true
+16:10:30 Debug: failed execution pid=97707 exit_code=1
+16:10:30 Debug: POST /telemetry-ext
+> {
+>   "items": null,
+>   "protoLogs": [
+>     "{\"frontend_log_event_id\":\"b38bf9fc-a99d-4b23-b0b3-7903c473e26b\",\"entry\":{\"databricks_cli_log\":{\"... (2641 more bytes)"
+>   ],
+>   "uploadTime": 1784452230627
+> }
+< HTTP/2.0 200 OK
+< {
+<   "errors": null,
+<   "numProtoSuccess": 1,
+<   "numRealtimeSuccess": 0,
+<   "numSuccess": 0
+< } pid=97707 sdk=true
+16:10:30 Debug: All 1 logs uploaded successfully pid=97707
