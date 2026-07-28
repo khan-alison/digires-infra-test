@@ -4,3 +4,6 @@ resources:
       project_id: "digires-lakebase"
       display_name: "DigiRES Lakebase"
       pg_version: 17
+      permissions:
+        - user_name: "khanh28112001@gmail.com"
+          level: "CAN_MANAGE"
