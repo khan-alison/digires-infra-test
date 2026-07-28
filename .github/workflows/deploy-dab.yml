@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install Databricks CLI
-        run: pip install databricks
+        run: pip install databricks-cli
       - name: Validate DAB
         run: databricks bundle validate --target dev
         env:
