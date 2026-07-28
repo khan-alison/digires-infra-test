@@ -1,0 +1,10 @@
+resources:
+  database_catalogs:
+    digires_lakebase_catalog:
+      name: "digires_lakebase"
+      database_instance_name: "digires-lakebase"
+      grants:
+        - principal: "khanh28112001@gmail.com"
+          privileges:
+            - USE_CATALOG
+            - SELECT
