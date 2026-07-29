@@ -56,6 +56,7 @@ jobs:
         run: |
           PGPASSWORD="$PG_TOKEN" psql \
             "host=$LAKEBASE_HOST port=5432 dbname=$LAKEBASE_DB_NAME user=${{ secrets.DATABRICKS_CLIENT_ID }} sslmode=require" \
+            -v ON_ERROR_STOP=1 \
             -v app_sp_id="${{ secrets.APP_SP_CLIENT_ID }}" \
             -v db_name="$LAKEBASE_DB_NAME" \
             -f sql/grant_app_role.sql
@@ -81,6 +82,7 @@ jobs:
         run: |
           PGPASSWORD="$PG_TOKEN" psql \
             "host=$LAKEBASE_HOST port=5432 dbname=$LAKEBASE_DB_NAME user=${{ secrets.DATABRICKS_CLIENT_ID }} sslmode=require" \
+            -v ON_ERROR_STOP=1 \
             -v target_user="khanh28112001@gmail.com" \
             -v db_name="$LAKEBASE_DB_NAME" \
             -f sql/grant_user_role.sql
