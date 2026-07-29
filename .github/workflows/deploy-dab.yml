@@ -11,6 +11,8 @@ env:
   DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
   DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
   DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+  LAKEBASE_HOST: "ep-sweet-waterfall-d820q2hq.database.us-east-2.cloud.databricks.com"
+  LAKEBASE_DB_NAME: "databricks_postgres"
 
 jobs:
   validate:
@@ -32,3 +34,53 @@ jobs:
         uses: databricks/setup-cli@main
       - name: Deploy to dev
         run: databricks bundle deploy --target dev
+
+  grant-app-access:
+    needs: deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install psql
+        run: sudo apt-get update && sudo apt-get install --yes postgresql-client
+      - name: Get OAuth token for deploy SP
+        run: |
+          TOKEN=$(curl -s --request POST "${{ secrets.DATABRICKS_HOST }}/oidc/v1/token" \
+            --data-urlencode grant_type=client_credentials \
+            --data-urlencode client_id="${{ secrets.DATABRICKS_CLIENT_ID }}" \
+            --data-urlencode client_secret="${{ secrets.DATABRICKS_CLIENT_SECRET }}" \
+            --data-urlencode scope=all-apis | jq -r .access_token)
+          echo "::add-mask::$TOKEN"
+          echo "PG_TOKEN=$TOKEN" >> "$GITHUB_ENV"
+      - name: Grant role to App SP
+        run: |
+          PGPASSWORD="$PG_TOKEN" psql \
+            "host=$LAKEBASE_HOST port=5432 dbname=$LAKEBASE_DB_NAME user=${{ secrets.DATABRICKS_CLIENT_ID }} sslmode=require" \
+            -v app_sp_id="${{ secrets.APP_SP_CLIENT_ID }}" \
+            -v db_name="$LAKEBASE_DB_NAME" \
+            -f sql/grant_app_role.sql
+
+  grant-user-access:
+    needs: deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install psql
+        run: sudo apt-get update && sudo apt-get install --yes postgresql-client
+      - name: Get OAuth token for deploy SP
+        run: |
+          TOKEN=$(curl -s --request POST "${{ secrets.DATABRICKS_HOST }}/oidc/v1/token" \
+            --data-urlencode grant_type=client_credentials \
+            --data-urlencode client_id="${{ secrets.DATABRICKS_CLIENT_ID }}" \
+            --data-urlencode client_secret="${{ secrets.DATABRICKS_CLIENT_SECRET }}" \
+            --data-urlencode scope=all-apis | jq -r .access_token)
+          echo "::add-mask::$TOKEN"
+          echo "PG_TOKEN=$TOKEN" >> "$GITHUB_ENV"
+      - name: Grant role to user
+        run: |
+          PGPASSWORD="$PG_TOKEN" psql \
+            "host=$LAKEBASE_HOST port=5432 dbname=$LAKEBASE_DB_NAME user=${{ secrets.DATABRICKS_CLIENT_ID }} sslmode=require" \
+            -v target_user="khanh28112001@gmail.com" \
+            -v db_name="$LAKEBASE_DB_NAME" \
+            -f sql/grant_user_role.sql
